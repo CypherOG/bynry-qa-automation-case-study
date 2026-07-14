@@ -341,3 +341,119 @@ This framework emphasizes:
 - Separation of responsibilities
 
 Following these principles makes the automation suite easier to maintain as the application grows.
+![Uploading image.png…]()
+---
+
+# Part 3 – API + UI Integration Testing Strategy
+
+## Objective
+
+The objective of this strategy is to verify that data created through backend APIs is correctly reflected in the user interface while ensuring proper tenant isolation in a multi-tenant SaaS application.
+
+Using APIs to prepare test data reduces execution time and makes UI tests more reliable.
+
+---
+
+## Proposed Test Flow
+
+1. Authenticate using the API.
+2. Create a new project through the Project API.
+3. Verify that the API returns a successful response.
+4. Open the web application using Playwright.
+5. Log in as the same tenant.
+6. Verify that the newly created project is visible on the dashboard.
+7. Log in as a different tenant.
+8. Verify that the project is **not** visible.
+9. Clean up the test data by deleting the created project.
+
+This approach validates both backend functionality and frontend behaviour while ensuring tenant data isolation.
+
+---
+
+## Why Use API + UI Together?
+
+Using APIs for setup provides several benefits:
+
+- Faster test execution.
+- Reduced dependency on UI interactions.
+- More stable automation.
+- Easier test data management.
+- Better end-to-end validation.
+
+The UI is then used only to verify what the end user experiences.
+
+---
+
+## Multi-Tenant Validation
+
+A key requirement for SaaS platforms is that one tenant must never access another tenant's data.
+
+Example validation:
+
+- Company A creates a project.
+- Company A can view the project.
+- Company B logs in.
+- Company B must not see Company A's project.
+
+This confirms that tenant isolation is working correctly.
+
+---
+
+## Edge Cases
+
+During automation I would also validate:
+
+- Invalid login credentials.
+- Expired authentication token.
+- Duplicate project names.
+- Network interruptions.
+- Slow page loading.
+- API timeout.
+- Missing required fields.
+- Browser refresh during execution.
+- Session timeout.
+- Unauthorized tenant access.
+
+Testing these scenarios improves overall application reliability.
+
+---
+
+# Assumptions
+
+The following assumptions were made while designing this solution:
+
+- Test environment is available.
+- API endpoints are accessible.
+- Test users already exist.
+- BrowserStack devices are configured separately.
+- Test data can be created and deleted.
+- Authentication tokens are available for automated testing.
+
+---
+
+# Future Improvements
+
+Given more time, the framework can be enhanced with:
+
+- Parallel execution using Pytest.
+- Docker support.
+- GitHub Actions CI/CD pipeline.
+- Allure reporting.
+- Visual regression testing.
+- Accessibility testing.
+- Database validation.
+- Performance testing.
+- Cross-browser execution.
+- Mobile automation using BrowserStack.
+
+---
+
+# Conclusion
+
+This case study demonstrates my understanding of QA Automation fundamentals and my approach toward designing a scalable automation framework.
+
+My focus was not only on writing automation scripts but also on creating a maintainable structure that supports reusable code, API integration, reliable UI testing, configuration management, and industry-standard automation practices.
+
+Although this is an internship assessment, I have followed software engineering principles to design a framework that can grow as the application evolves.
+
+Thank you for reviewing my submission.
